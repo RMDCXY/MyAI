@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--Powered by MyAI-->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--页面标题-->
+    <title>MyAI模板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        /* 自定义字体 */
+        /*
+        @font-face {
+            font-family: 'Smileysans';
+            src: url('SmileySans.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        */
+        
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                background-image: url('pc.png');
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                background-image: url('mob.png');
+            }
+        }
+
+        .chat-container {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-message {
+            align-items: flex-start;
+        }
+
+        .user-message {
+            align-items: flex-end;
+        }
+
+        .message-bubble {
+            background-color: #2979ff;
+            max-width: 80%;
+            width: fit-content;
+            min-width: 48px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .ai-bubble {
+            background: rgb(180, 210, 255);
+            color: #174ea6;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .user-bubble {
+            background: rgb(220, 220, 220);
+            color: #000000;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .input-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            outline: none;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        #send-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(0, 136, 255, 0.833);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        #send-button:hover {
+            background: rgba(0, 72, 255, 0.756);
+        }
+
+        .send-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .model-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        #model-toggle {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #0095ff;
+            background-color: #0095ff;
+        }
+
+
+        .typing-indicator {
+            display: none;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00a2ff;
+            border-radius: 50%;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #006eff 100%, #6a00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+        }
+        
+    </style>
+</head>
+<body>
+    <!--大标题-->
+    <h1>MyAI</h1>
+    <div class="chat-container" id="chat-container">
+        <!--欢迎语-->
+        <div class="message-bubble assistant-bubble">欢迎使用MyAI模板！(≧∇≦)ﾉ</div>
+        <div class="typing-indicator" id="typing-indicator">
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="input-area">
+            <!--输入框提示文本-->
+            <input type="text" id="message-input" placeholder="输入你的消息..." autocomplete="off">
+            <button id="send-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                    <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.76 12H6.832m0 0c0-.275-.057-.55-.17-.808L4.285 5.814c-.76-1.72 1.058-3.442 2.734-2.591L20.8 10.217c1.46.74 1.46 2.826 0 3.566L7.02 20.777c-1.677.851-3.495-.872-2.735-2.591l2.375-5.378A2 2 0 0 0 6.83 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="model-toggle">
+            <input type="checkbox" id="model-toggle">
+            <!--备用模型选项文本-->
+            <label for="model-toggle" style="color: white">Deepseek-R1深度思考</label>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
