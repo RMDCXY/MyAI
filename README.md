@@ -1,7 +1,8 @@
 # MyAI模板 - 创建自己的AI，网页部署，更好分享
 
 <img width="1920" height="1030" alt="image" src="https://github.com/user-attachments/assets/a2c48e3b-0c89-4ed2-b16b-d6d82f2be5fb" />
-> 欢迎访问[MyAI示例站点](https://cxybbs.top/ai)
+
+_欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
 > 本文档将会一步步引导您创建出自己的MyAI，让大家更好、更容易体验到您的AI！
 
@@ -72,3 +73,4 @@
 
 
 > ⚠注意！部分模型可能需要💴，您可以打开筛选器，筛选免费的AI模型。当然，如果您有一些💴的话，您也可以在左边侧边栏打开**余额充值**进行充值。
+
