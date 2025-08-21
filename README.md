@@ -12,11 +12,7 @@ _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
 [dpdns.org免费域名注册+托管教程](https://www.bilibili.com/video/BV13pGJzpEpT/?share_source=copy_web&vd_source=3392b84c6a87a67bdce0fd9ca9fdbf67)
 
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114817310398436&bvid=BV13pGJzpEpT&cid=30921067304&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-
 [us.kg免费域名注册+托管教程](https://www.bilibili.com/video/BV1AjiBYVEoF/?share_source=copy_web&vd_source=3392b84c6a87a67bdce0fd9ca9fdbf67)
-
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113605794076945&bvid=BV1AjiBYVEoF&cid=27210288092&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
 ## ①第一步 克隆仓库
 > Tips:MyAI依赖于Cloudflare Pages运行，为了编辑方便，建议使用克隆仓库到本地的方法。
