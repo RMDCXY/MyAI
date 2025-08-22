@@ -1,5 +1,7 @@
 # MyAI模板 - 创建自己的AI，网页部署，更好分享
 
+<img alt="PixPin_2025-08-22_13-31-51" src="https://github.com/user-attachments/assets/a3750f3e-19d6-4b27-8d02-7c3a62175c4c" />
+
 _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
 
@@ -217,3 +219,4 @@ https://example.com/ai-proxy*
 ### 5.自定义网站图标
 
 准备好您想要更改的图标图片。打开[RealFaviconGenerator](https://realfavicongenerator.net/)（此站点为英文站点，如果看不懂可以打开翻译工具），点击右侧的**选择您的网站图标图像**，上传刚才准备的图标图片，并根据需要调整相关配置。注意，在最下面的一个输入框需要填写`/favicon/`。完成配置之后点击**下一步**,会跳转到新页面，先将页面下方的多行代码复制下来，然后点击**下载**按钮，会下载一个zip压缩包。然后在MyAI文件夹下创建一个`favicon`文件夹，将下载下来的压缩包解压到MyAI文件夹下的`favicon`文件夹下。接着打开MyAI文件夹下的`index.html`，转到第`10`行，将刚才复制的代码复制到第`10`行（记得给代码添加缩进！）。这样，图标就修改好了。
+
