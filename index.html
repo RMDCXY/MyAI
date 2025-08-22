@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--页面标题-->
-    <title>MyAI模板</title>
+    <title id="webtitle">MyAI模板</title>
+
     <style>
         * {
             margin: 0;
@@ -15,14 +16,12 @@
         }
 
         /* 自定义字体 */
-        /*
         @font-face {
-            font-family: 'Smileysans';
-            src: url('SmileySans.woff2') format('woff2');
+            font-family: 'Font';
+            src: url('font_file') format('woff2');
             font-weight: normal;
             font-style: normal;
         }
-        */
         
         body {
             height: 100vh;
@@ -229,11 +228,11 @@
     </style>
 </head>
 <body>
-    <!--大标题-->
-    <h1>MyAI</h1>
+    <!-- 新增动态标题 -->
+    <h1 id="dynamic-title" style="font-family: Font;"></h1>
     <div class="chat-container" id="chat-container">
         <!--欢迎语-->
-        <div class="message-bubble assistant-bubble">欢迎使用MyAI模板！(≧∇≦)ﾉ</div>
+        <div class="message-bubble assistant-bubble" id="welcome">欢迎使用MyAI模板！(≧∇≦)ﾉ</div>
         <div class="typing-indicator" id="typing-indicator">
             <div class="typing-dots">
                 <div class="typing-dot"></div>
@@ -244,8 +243,7 @@
     </div>
     <div class="input-container">
         <div class="input-area">
-            <!--输入框提示文本-->
-            <input type="text" id="message-input" placeholder="输入你的消息..." autocomplete="off">
+            <input type="text" id="message-input" style="font-family: Font;" placeholder="输入你的消息..." autocomplete="off">
             <button id="send-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                     <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.76 12H6.832m0 0c0-.275-.057-.55-.17-.808L4.285 5.814c-.76-1.72 1.058-3.442 2.734-2.591L20.8 10.217c1.46.74 1.46 2.826 0 3.566L7.02 20.777c-1.677.851-3.495-.872-2.735-2.591l2.375-5.378A2 2 0 0 0 6.83 12"/>
@@ -255,10 +253,28 @@
         <div class="model-toggle">
             <input type="checkbox" id="model-toggle">
             <!--备用模型选项文本-->
-            <label for="model-toggle" style="color: white">Deepseek-R1深度思考</label>
+            <label id="alternate-model" for="model-toggle" style="color: white;font-family: Font;">Deepseek-R1深度思考</label>
         </div>
     </div>
 
     <script src="script.js"></script>
+    <script>
+    fetch('myai.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('dynamic-title').textContent = data.title || 'MyAI';
+            document.getElementById('message-input').placeholder = data.prompt-text || "输入你的消息...";
+            document.getElementById('alternate-model').textContent = data.alternate-model-text || "Deepseek-R1深度思考";
+            document.getElementById('welcome').textContent = data.welcome || "欢迎使用MyAI模板！(≧∇≦)ﾉ";
+            document.getElementById('webtitle').textContent = data.webtitle || "MyAI";
+        })
+        .catch(() => {
+            document.getElementById('dynamic-title').textContent = 'MyAI';
+            document.getElementById('message-input').placeholder = "输入你的消息...";
+            document.getElementById('alternate-model').textContent = "Deepseek-R1深度思考";
+            document.getElementById('welcome').textContent = "欢迎使用MyAI模板！(≧∇≦)ﾉ";
+            document.getElementById('webtitle').textContent = "MyAI";
+        });
+    </script>
 </body>
 </html>

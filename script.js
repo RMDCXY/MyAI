@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 隐藏"正在输入"指示器
             typingIndicator.style.display = 'none';
             
-            // 友好的错误提示
+            // 错误提示
             let errorMessage = '服务暂时不可用，请稍后再试。';
             
             if (error.message.includes('Failed to fetch')) {
