@@ -1,6 +1,7 @@
 # MyAI模板 - 创建自己的AI，网页部署，更好分享
 
 _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
+<img alt="PixPin_2025-08-22_13-31-51" src="https://github.com/user-attachments/assets/7283cf32-3c17-4434-904b-93da13ddc3ff" />
 
 
 > 本文档将会一步步引导您创建出自己的MyAI，让大家更好、更容易体验到您的AI！
@@ -231,4 +232,5 @@ MyAI
 |myai.json
 |script.js
 |(其它文件...)
+
 ```
