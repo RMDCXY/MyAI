@@ -3,5 +3,6 @@
     "prompt-text":"输入你的消息...",
     "alternate-model-text":"Deepseek-R1深度思考",
     "welcome":"欢迎使用MyAI模板！(≧∇≦)ﾉ",
-    "webtitle":"MyAI"
+    "webtitle":"MyAI",
+    "theme-color":"#006eff"
 }

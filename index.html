@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--页面标题-->
     <title id="webtitle">MyAI模板</title>
-
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
     <style>
         * {
             margin: 0;
@@ -218,20 +222,15 @@
             text-align: center;
             font-size: 2.5rem;
             font-weight: bold;
-            background: linear-gradient(90deg, #006eff 100%, #6a00ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 24px;
         }
         
     </style>
 </head>
 <body>
-    <!-- 新增动态标题 -->
+    <a href="https://example.com/" style="text-align: left;"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 1024 1024"><path fill="#000000" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64"/><path fill="#000000" d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z"/></svg></a>
     <h1 id="dynamic-title" style="font-family: Font;"></h1>
     <div class="chat-container" id="chat-container">
-        <!--欢迎语-->
         <div class="message-bubble assistant-bubble" id="welcome">欢迎使用MyAI模板！(≧∇≦)ﾉ</div>
         <div class="typing-indicator" id="typing-indicator">
             <div class="typing-dots">
@@ -262,11 +261,38 @@
     fetch('myai.json')
         .then(response => response.json())
         .then(data => {
+            // 标题
             document.getElementById('dynamic-title').textContent = data.title || 'MyAI';
-            document.getElementById('message-input').placeholder = data.prompt-text || "输入你的消息...";
-            document.getElementById('alternate-model').textContent = data.alternate-model-text || "Deepseek-R1深度思考";
+            // 输入框提示
+            document.getElementById('message-input').placeholder = data["prompt-text"] || "输入你的消息...";
+            // 备用模型文本
+            document.getElementById('alternate-model').textContent = data["alternate-model-text"] || "Deepseek-R1深度思考";
+            // 欢迎语
             document.getElementById('welcome').textContent = data.welcome || "欢迎使用MyAI模板！(≧∇≦)ﾉ";
+            // 网页标题
             document.getElementById('webtitle').textContent = data.webtitle || "MyAI";
+
+            // 主题色
+            const themeColor = data["theme-color"] || "#006eff";
+            // h1大标题字体渐变色
+            document.getElementById('dynamic-title').style.background = `linear-gradient(90deg, ${themeColor} 100%, #6a00ff 100%)`;
+            document.getElementById('dynamic-title').style.webkitBackgroundClip = "text";
+            document.getElementById('dynamic-title').style.webkitTextFillColor = "transparent";
+            document.getElementById('dynamic-title').style.backgroundClip = "text";
+
+            // AI气泡背景色
+            const aiBubbles = document.querySelectorAll('.assistant-bubble, .ai-bubble');
+            aiBubbles.forEach(el => {
+                el.style.background = themeColor;
+                el.style.color = "#fff";
+            });
+
+            // 备用模型勾选框底色
+            document.getElementById('model-toggle').style.backgroundColor = themeColor;
+            document.getElementById('model-toggle').style.accentColor = themeColor;
+
+            // 发送按钮底色
+            document.getElementById('send-button').style.background = themeColor;
         })
         .catch(() => {
             document.getElementById('dynamic-title').textContent = 'MyAI';
