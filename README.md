@@ -1,7 +1,6 @@
 # MyAI模板 - 创建自己的AI，网页部署，更好分享
 
 _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
-<img alt="PixPin_2025-08-22_13-31-51" src="https://github.com/user-attachments/assets/7283cf32-3c17-4434-904b-93da13ddc3ff" />
 
 
 > 本文档将会一步步引导您创建出自己的MyAI，让大家更好、更容易体验到您的AI！
@@ -15,7 +14,7 @@ _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 [us.kg免费域名注册+托管教程](https://www.bilibili.com/video/BV1AjiBYVEoF/?share_source=copy_web&vd_source=3392b84c6a87a67bdce0fd9ca9fdbf67)
 
 ## ①第一步 克隆仓库
-> Tips:MyAI依赖于Cloudflare Pages运行，为了编辑方便，建议使用克隆仓库到本地的方法。
+> Tip:MyAI依赖于Cloudflare Pages运行，为了编辑方便，建议使用克隆仓库到本地的方法。
 
 首先，您需要将本仓库克隆到本地。您可以点击仓库的绿色`code`按钮，再点击`Download ZIP`按钮将整个仓库以ZIP形式下载到本地。或者，您还可以使用Git克隆、前往本仓库的Releases下载，等等。在将仓库克隆完成之后，您应该会在您的计算机上的MyAI文件夹内看到`index.html`和`script.js`两个文件。当您完成这一步之后，就可以进行下一步了。
 
@@ -34,7 +33,7 @@ _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 ## ④第四步 修改JS
 转到第`16`行，将双引号内的内容换成您希望的AI提示词。
 
-> Tips:如果您不会写提示词，您可以参考以下提示词，或者复制以下提示词替换。
+> Tip:如果您不会写提示词，您可以参考以下提示词，或者复制以下提示词替换。
 ```
 你的名字叫做“(替换为您的AI名字)”，是一个AI助理。你和用户交流需要和聊天一样，回答要简洁明了，态度要积极乐观。你的回答绝对不能使用任何Markdown格式，回答的字数尽量控制在50字以内，在非用户要求情况的下输出只能使用中文。注意，你不是多模态模型，不能生成图片、视频等，当用户和尼提出这类要求时，你需要拒绝用户。现在，你需要严格按照以上要求来处理用户的问题：
 ```
@@ -158,6 +157,13 @@ export default {
 }
 ```
 
+## * 测试效果（可选）
+> 如果您想要先测试MyAI效果再部署，您可以先操作该步骤之后再进行下一步部署操作。
+
+首先您需要准备安装好[VSCode](https://code.visualstudio.com)。安装好之后按下`Ctrl+Shift+X`，打开拓展商店，然后点击上方的搜索框，搜索**Live Server**，选择排行第一的拓展安装。安装完成之后，再按下`Ctrl+Shift+E`打开VSCode的资源管理器，将您的MyAI文件夹拖入，再右键其中的`index.html`文件，选择`Open with Live Server`，就会自动打开浏览器，您就可以看到效果啦！
+
+> Tip:由于浏览器安全限制，直接打开html文件，会因为无法访问json文件而无法看到真实效果。使用Live Server的本地服务器才能够看到真实的MyAI效果。
+
 ## ⑦第七步 正式部署
 打开[Cloudflare](https://dash.cloudflare.com)，登录或注册现有账户。然后在左侧边栏中找到**计算 (Workers)**，点击进入，然后点击蓝色的`创建`按钮，在**开始使用**下方，选择**Pages**，点击**使用直接上传**旁边的`开始使用`。在**项目名称**的输入框中，填写一个适合的名称（例如`my-ai`），点击`创建项目`，选择`📂上传文件夹`，再将整个MyAI文件夹上传上去，就部署完成啦！
 部署完成之后，您还需要前往Pages的**自定义域**部分，添加一个自定义域（您托管在Cloudflare上的域名），注意，这一步是必须的！
@@ -180,6 +186,9 @@ https://example.com/ai-proxy*
 
 **Q:** 别人可以随意使用我的MyAI进行对话吗？
 > **A:** 是的。只要别人知道您部署后的MyAI的网页URL，无需进行登录等操作即可直接和AI对话。
+
+**Q:** 我的API密钥会有安全风险吗？
+> **A:** 放心，您的API密钥绝对安全。MyAI使用Cloudflare Worker进行请求中转，您的API密钥被安全的存储在Cloudflare环境变量中，且为密钥类型。即使您的Cloudflare账户被盗或密码泄露，API密钥也绝对没有安全风险。
 
 如果您还有其它问题，可以向本仓库创建一个issue，也可以[向我发邮件](mailto:rmdcxypgm@outlook.com)询问。
 
@@ -220,6 +229,12 @@ https://example.com/ai-proxy*
 ```
 
 ### 6.自定义主题色
+使用您喜欢的编辑器打开MyAI文件夹下的`myai.json`，转到第`7`行，将`#0064ef`字段修改为您想要的主题色。
+以下是合法的主题色输入范例：
+|英文颜色单词|十六进制|
+|---|---|
+|blue|#114514|
+如果您不知道如何获取想要颜色的十六进制值，您可以使用[工具](https://www.bing.com/search?q=%E6%8B%BE%E8%89%B2%E5%99%A8)快速获取。
 
 ### 7.自定义网站图标
 
@@ -232,5 +247,4 @@ MyAI
 |myai.json
 |script.js
 |(其它文件...)
-
 ```
