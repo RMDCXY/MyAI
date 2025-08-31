@@ -2,6 +2,7 @@
 
 _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
+<img alt="MyAI Sample Website Screenshot" src="https://github.com/user-attachments/assets/7e0b0b8e-e01a-4c6f-8c12-d3a1aab0f52c" />
 
 > 本文档将会一步步引导您创建出自己的MyAI，让大家更好、更容易体验到您的AI！
 
@@ -250,4 +251,5 @@ MyAI
 |myai.json
 |script.js
 |(其它文件...)
+
 ```
