@@ -91,6 +91,7 @@
             word-wrap: break-word;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
             position: relative;
+            overflow: visible; /* 允许按钮显示在外部 */
         }
 
         .ai-bubble {
@@ -179,6 +180,14 @@
             background-color: #0095ff;
         }
 
+        #research-mode-toggle {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #0095ff;
+            background-color: #0095ff;
+        }
+
 
         .typing-indicator {
             display: none;
@@ -224,7 +233,29 @@
             font-weight: bold;
             margin-bottom: 24px;
         }
-        
+
+        .copy-btn {
+            position: absolute;
+            right: -25px;
+            bottom: -3px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        .copy-btn svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+        .copy-btn.copied svg {
+            color: #19c37d;
+            fill: #19c37d;
+        }
     </style>
 </head>
 <body>
@@ -248,13 +279,23 @@
                 </svg>
             </button>
         </div>
-        <div class="model-toggle">
-            <input type="checkbox" id="model-toggle">
-            <!--备用模型选项文本-->
-            <label id="alternate-model" for="model-toggle" style="color: white;font-family: Font;">Deepseek-R1深度思考</label>
+        <div class="model-toggles" style="display: flex; align-items: center; gap: 20px;">
+            <div class="model-toggle">
+                <input type="checkbox" id="model-toggle">
+                <!--备用模型选项文本-->
+                <label id="alternate-model" for="model-toggle" style="color: white;font-family: Font;">Deepseek-R1深度思考</label>
+            </div>
+            <div class="model-toggle" id="research-mode-container" style="display: none;">
+                <input type="checkbox" id="research-mode-toggle">
+                <label for="research-mode-toggle" style="color: white;font-family: Font;">研究模式</label>
+            </div>
         </div>
     </div>
-
+    <div style="text-align:center;margin-top:10px;display:flex;justify-content:center;gap:10px;">
+        <a href="#" id="clear-logs-link" style="text-decoration:underline;font-size:14px;">清除历史记录</a>
+        <a href="#" id="about-link" style="text-decoration:underline;font-size:14px;">关于</a>
+    </div>
+    
     <script src="script.js"></script>
     <script>
     fetch('myai.json')
@@ -271,6 +312,11 @@
             // 网页标题
             document.getElementById('webtitle').textContent = data.webtitle || "MyAI";
 
+            // 研究模式
+            if (data["research-mode"] === true) {
+                document.getElementById('research-mode-container').style.display = 'flex';
+            }
+
             // 主题色
             const themeColor = data["theme-color"] || "#006eff";
             // h1大标题字体渐变色
@@ -278,20 +324,34 @@
             document.getElementById('dynamic-title').style.webkitBackgroundClip = "text";
             document.getElementById('dynamic-title').style.webkitTextFillColor = "transparent";
             document.getElementById('dynamic-title').style.backgroundClip = "text";
-
             // AI气泡背景色
-            const aiBubbles = document.querySelectorAll('.assistant-bubble, .ai-bubble');
-            aiBubbles.forEach(el => {
-                el.style.background = themeColor;
-                el.style.color = "#fff";
-            });
-
+            const style = document.createElement('style');
+            style.textContent = `
+                .assistant-bubble, .ai-bubble {
+                    background: ${themeColor} !important;
+                    color: #fff !important;
+                }
+            `;
+            document.head.appendChild(style);
             // 备用模型勾选框底色
             document.getElementById('model-toggle').style.backgroundColor = themeColor;
             document.getElementById('model-toggle').style.accentColor = themeColor;
-
+            // 研究模式勾选框底色
+            document.getElementById('research-mode-toggle').style.backgroundColor = themeColor;
+            document.getElementById('research-mode-toggle').style.accentColor = themeColor;
             // 发送按钮底色
             document.getElementById('send-button').style.background = themeColor;
+            // 底部链接颜色
+            document.getElementById('clear-logs-link').style.color = themeColor;
+            document.getElementById('about-link').style.color = themeColor;
+            // 关于链接弹窗
+            const aboutLink = document.getElementById('about-link');
+            if (aboutLink) {
+                aboutLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert(data["about-info"] || "关于信息未配置");
+                });
+            }
         })
         .catch(() => {
             document.getElementById('dynamic-title').textContent = 'MyAI';

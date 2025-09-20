@@ -4,5 +4,7 @@
     "alternate-model-text":"Deepseek-R1深度思考",
     "welcome":"欢迎使用MyAI模板！(≧∇≦)ﾉ",
     "webtitle":"MyAI",
-    "theme-color":"#006eff"
+    "theme-color":"#0064ef",
+    "research-mode":true,
+    "about-info":"您可以在myai.json里调整关于信息"
 }
