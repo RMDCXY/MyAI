@@ -6,5 +6,6 @@
     "webtitle":"MyAI",
     "theme-color":"#0064ef",
     "research-mode":true,
-    "about-info":"您可以在myai.json里调整关于信息"
+    "about-info":"您可以在myai.json里调整关于信息",
+    "return-btn":[false,"https://example.com"]
 }

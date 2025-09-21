@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--Powered by MyAI-->
+<!-- https://github.com/RMDCXY/MyAI -->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--页面标题-->
     <title id="webtitle">MyAI模板</title>
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
@@ -259,6 +259,7 @@
     </style>
 </head>
 <body>
+    <div id="return-btn-container"></div>
     <h1 id="dynamic-title" style="font-family: Font;"></h1>
     <div class="chat-container" id="chat-container">
         <div class="message-bubble assistant-bubble" id="welcome">欢迎使用MyAI模板！(≧∇≦)ﾉ</div>
@@ -318,7 +319,15 @@
             }
 
             // 主题色
-            const themeColor = data["theme-color"] || "#006eff";
+            const themeColor = data["theme-color"] || "#0064ef";
+
+            // 返回按钮逻辑
+            if (Array.isArray(data["return-btn"]) && data["return-btn"][0] === true && typeof data["return-btn"][1] === "string") {
+                const returnBtnContainer = document.getElementById('return-btn-container');
+                if (returnBtnContainer) {
+                    returnBtnContainer.innerHTML = `<a id="return-btn-link" href="${data["return-btn"][1]}" style="text-align: left;item-align: left"><svg id="return-btn-svg" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 1024 1024"><path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" stroke="${themeColor}" stroke-width="64" fill="none" stroke-linecap="round"/><path d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" stroke="${themeColor}" stroke-width="64" fill="none" stroke-linecap="round"/></svg></a>`;
+                }
+            }
             // h1大标题字体渐变色
             document.getElementById('dynamic-title').style.background = `linear-gradient(90deg, ${themeColor} 100%, #6a00ff 100%)`;
             document.getElementById('dynamic-title').style.webkitBackgroundClip = "text";
@@ -351,6 +360,12 @@
                     e.preventDefault();
                     alert(data["about-info"] || "关于信息未配置");
                 });
+            }
+
+            // 返回按钮图标颜色适配
+            const returnBtnSvg = document.getElementById('return-btn-svg');
+            if (returnBtnSvg) {
+                returnBtnSvg.querySelectorAll('path').forEach(p => p.setAttribute('fill', themeColor));
             }
         })
         .catch(() => {
