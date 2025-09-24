@@ -2,7 +2,7 @@
 
 _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
-<img alt="MyAI Sample Website Screenshot" src="https://github.com/user-attachments/assets/7e0b0b8e-e01a-4c6f-8c12-d3a1aab0f52c" />
+<img alt="MyAI Example Website Screenshot" src="https://github.com/user-attachments/assets/5cc0ee3c-890d-4da7-a86a-275858e495ee" />
 
 > MyAI是一个高个性化的Web项目，皆在帮助大家更轻松的为自己的网站添加一个AI对话功能。本文档将会一步步引导您创建出自己的MyAI，让大家更好、更容易体验到您的AI！
 
@@ -203,7 +203,7 @@ export default {
 打开[Cloudflare](https://dash.cloudflare.com)，登录或注册现有账户。然后在左侧边栏中找到**计算 (Workers)**，点击进入，然后点击蓝色的`创建`按钮，在**开始使用**下方，选择**Pages**，点击**使用直接上传**旁边的`开始使用`。在**项目名称**的输入框中，填写一个适合的名称（例如`my-ai`），点击`创建项目`，选择`📂上传文件夹`，再将整个MyAI文件夹上传上去，就部署完成啦！
 部署完成之后，您还需要前往Pages的**自定义域**部分，添加一个自定义域（您托管在Cloudflare上的域名），注意，这一步是必须的！
 
-在部署完成之后，我们还需要进行一下最后的配置。依旧打开[Cloudflare](https://dash.cloudflare.com)，然后在左侧边栏中找到**计算 (Workers)**，点击进入，打开**第六步**创建的Worker，进入**设置**，点击下方**变量与机密**旁边的`＋ 添加`按钮，会弹出添加页面，在类型处选择**密钥**，变量名称填写`SILICONFLOW_API_KEY`，值处需要前往[硅基流动API密钥页面](https://cloud.siliconflow.cn/me/account/ak)，复制第三步创建的API密钥填入，最后点击部署，API密钥的配置就完成了。
+在部署完成之后，我们还需要进行一下最后的配置。依旧打开[Cloudflare](https://dash.cloudflare.com)，然后在左侧边栏中找到**计算 (Workers)**，点击进入，打开**第四步**创建的Worker，进入**设置**，点击下方**变量与机密**旁边的`＋ 添加`按钮，会弹出添加页面，在类型处选择**密钥**，变量名称填写`SILICONFLOW_API_KEY`，值处需要前往[硅基流动API密钥页面](https://cloud.siliconflow.cn/me/account/ak)，复制第三步创建的API密钥填入，最后点击部署，API密钥的配置就完成了。
 API密钥配置完成之后，我们还需要配置Worker路由。依旧打开Worker的设置，点击**域和路由**旁边的`＋ 添加`按钮，选择**路由**，在**区域**部分选择您托管在Cloudflare上的域名，路由按以下模板填写，再点击`添加路由`，就可以啦！
 ```
 （下面两条路由都填写，将example.com换成您的域名，*星号不要更改！）
@@ -241,8 +241,6 @@ https://example.com/ai-proxy*
 > 在做完您想要的拓展操作之后，如果您不确定效果是否正确，您可以按照该步骤先测试效果之后再进行部署。
 
 首先您需要准备安装好[VSCode](https://code.visualstudio.com)。安装好之后按下`Ctrl+Shift+X`，打开拓展商店，然后点击上方的搜索框，搜索**Live Server**，选择由**Ritwick Dey**发布的拓展安装。安装完成之后，再按下`Ctrl+Shift+E`打开VSCode的资源管理器，将您的MyAI文件夹拖入，再右键其中的`index.html`文件，选择`Open with Live Server`，就会自动打开浏览器，您就可以看到效果啦！
-
-> Tip:Live Server足够智能，当您修改完成网页保存之后，浏览器网页也会自动刷新。
 
 > 由于浏览器安全限制，直接打开html文件，会因为无法访问json文件而无法看到真实效果。使用Live Server的本地服务器才能够看到真实的MyAI效果。
 
