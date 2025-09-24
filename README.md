@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">MyAI模板 - 创建自己的AI，网页部署，更好分享</h1>
+<h1 style="text-align: center;item-align: center;">MyAI模板 - 创建自己的AI，网页部署，更好分享</h1>
 
 _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
@@ -289,3 +289,4 @@ https://example.com/ai-proxy*
 
 # 感谢您使用MyAI！
 > 欢迎[在哔哩哔哩上关注我](https://space.bilibili.com/3493142110144946)(doge)
+
