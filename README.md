@@ -2,7 +2,7 @@
 
 _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
-<img alt="MyAI Example Website Screenshot" src="https://github.com/user-attachments/assets/5cc0ee3c-890d-4da7-a86a-275858e495ee" />
+<img alt="MyAI Sample Website Screenshot" src="https://github.com/user-attachments/assets/7e0b0b8e-e01a-4c6f-8c12-d3a1aab0f52c" />
 
 > MyAI是一个高个性化的Web项目，皆在帮助大家更轻松的为自己的网站添加一个AI对话功能。本文档将会一步步引导您创建出自己的MyAI，让大家更好、更容易体验到您的AI！
 
@@ -289,4 +289,3 @@ https://example.com/ai-proxy*
 
 # 感谢您使用MyAI！
 > 欢迎[在哔哩哔哩上关注我](https://space.bilibili.com/3493142110144946)(doge)
-

@@ -16,7 +16,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-
         }
 
         /* 自定义字体 */
@@ -55,7 +54,7 @@
             flex: 1;
             width: 100%;
             max-width: 1200px;
-            margin: 0 auto 20px;
+            margin: 0 auto 0;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -271,6 +270,7 @@
             </div>
         </div>
     </div>
+    <h4 id="ai-tip" style="text-align: center;padding-bottom: 10px;padding-top: 10px;">内容由AI生成，请仔细甄别。</h4>
     <div class="input-container">
         <div class="input-area">
             <input type="text" id="message-input" style="font-family: Font;" placeholder="输入你的消息..." autocomplete="off">
@@ -328,7 +328,7 @@
                     returnBtnContainer.innerHTML = `<a id="return-btn-link" href="${data["return-btn"][1]}" style="text-align: left;item-align: left"><svg id="return-btn-svg" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 1024 1024"><path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" stroke="${themeColor}" stroke-width="64" fill="none" stroke-linecap="round"/><path d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" stroke="${themeColor}" stroke-width="64" fill="none" stroke-linecap="round"/></svg></a>`;
                 }
             }
-            // h1大标题字体渐变色
+            // h1大标题
             document.getElementById('dynamic-title').style.background = `linear-gradient(90deg, ${themeColor} 100%, #6a00ff 100%)`;
             document.getElementById('dynamic-title').style.webkitBackgroundClip = "text";
             document.getElementById('dynamic-title').style.webkitTextFillColor = "transparent";
@@ -353,12 +353,14 @@
             // 底部链接颜色
             document.getElementById('clear-logs-link').style.color = themeColor;
             document.getElementById('about-link').style.color = themeColor;
+            // 底部AI提示颜色
+            document.getElementById('ai-tip').style.color = themeColor;
             // 关于链接弹窗
             const aboutLink = document.getElementById('about-link');
             if (aboutLink) {
                 aboutLink.addEventListener('click', function(e) {
                     e.preventDefault();
-                    alert(data["about-info"] || "关于信息未配置");
+                    alert(data["about-info"] || "关于信息加载失败QWQ");
                 });
             }
 
