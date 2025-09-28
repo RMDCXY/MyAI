@@ -17,7 +17,7 @@ _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 ## ①第一步 克隆仓库
 > Tip:MyAI依赖于Cloudflare Pages运行，为了编辑方便，建议使用克隆仓库到本地的方法。
 
-首先，您需要将本仓库克隆到本地。您可以点击仓库的绿色`code`按钮，再点击`Download ZIP`按钮将整个仓库以ZIP形式下载到本地。或者，您还可以使用Git克隆、前往本仓库的Releases下载，等等。在将仓库克隆完成之后，您应该会在您的计算机上的MyAI文件夹内看到`index.html`和`script.js`两个文件。当您完成这一步之后，就可以进行下一步了。
+首先，您需要将本仓库克隆到本地。您可以点击仓库的绿色`code`按钮，再点击`Download ZIP`按钮将整个仓库以ZIP形式下载到本地。或者，您还可以使用Git克隆、前往本仓库的Releases下载，等等。在将仓库克隆完成之后，您应该会在您的计算机上的MyAI文件夹内看到`index.html`和`script.js`、`myai.json`三个文件（或者更多）。当您完成这一步之后，就可以进行下一步了。
 
 ## ②第二步 硅基流动
 打开[硅基流动官网](https://siliconflow.cn/)，点击右上角`登录`，并注册或登录现有账户。
@@ -288,4 +288,5 @@ https://example.com/ai-proxy*
 ---
 
 # 感谢您使用MyAI！
+
 > 欢迎[在哔哩哔哩上关注我](https://space.bilibili.com/3493142110144946)(doge)
