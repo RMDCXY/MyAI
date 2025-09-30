@@ -31,7 +31,7 @@ _欢迎访问[MyAI示例站点](https://cxybbs.top/ai)_
 
 ### - 1.修改背景图片
 
-> 注：在本步骤的重命名图片操作中，扩展名无需更改。
+> 注：如果您准备的背景图片不为png格式，请使用[工具](https://cdkm.com/cn/)将图片转换为png格式！
 
 将两张准备工作中准备好的电脑端、手机端背景图片分别重命名为`pc.png`和`mob.png`，复制到MyAI文件夹的根目录下。
 
@@ -290,3 +290,4 @@ https://example.com/ai-proxy*
 # 感谢您使用MyAI！
 
 > 欢迎[在哔哩哔哩上关注我](https://space.bilibili.com/3493142110144946)(doge)
+
