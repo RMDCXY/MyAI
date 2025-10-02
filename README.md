@@ -224,13 +224,13 @@ https://example.com/ai-proxy*
 > **A:** 是的。只要别人知道您部署后的MyAI的网页URL，无需进行登录等操作即可直接和AI对话。
 
 **Q:** 我的API密钥会有安全风险吗？
-> **A:** 放心，您的API密钥绝对安全。MyAI使用Cloudflare Worker进行请求中转，您的API密钥被安全的存储在Cloudflare环境变量中，且为密钥类型。即使您的Cloudflare账户被盗或密码泄露，API密钥也绝对没有安全风险。
+> **A:** 放心，您的API密钥绝对安全。MyAI使用Cloudflare Worker进行请求中转，您的API密钥被安全的存储在Cloudflare环境变量中，且为密钥类型。即使您的Cloudflare账户被盗或密码泄露，API密钥也没有安全风险。
 
 **Q:** MyAI可以生成图片视频吗？
 > **A:** 目前MyAI暂时不能生成图片视频，因为MyAI只能接入单一模态模型。所以，我们建议您在AI提示词中注明AI不能生成音视频。
 
 **Q:** MyAI有上下文功能吗？
-> **A:** 目前MyAI暂时没有上下文功能，也就是和AI对话时，AI无法回忆刚才聊了什么。在未来可能会添加这个功能，敬请期待 o((>ω< ))o
+> **A:** 是的！在这个版本中，我们已经添加了上下文！（虽然还没测试过，而且为了避免400错误，只有10条上下文QWQ）
 
 如果您还有其它问题，可以向本仓库创建一个Issue，也可以[向我发邮件](mailto:rmdcxypgm@outlook.com)询问。
 
@@ -288,6 +288,4 @@ https://example.com/ai-proxy*
 ---
 
 # 感谢您使用MyAI！
-
 > 欢迎[在哔哩哔哩上关注我](https://space.bilibili.com/3493142110144946)(doge)
-

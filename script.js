@@ -1,32 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Cookie工具函数
-    function setCookie(name, value, days) {
-        let expires = '';
-        if (days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = '; expires=' + date.toUTCString();
+    function saveHistoryToStorage(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+            console.warn('保存历史到 localStorage 失败', e);
         }
-        document.cookie = name + '=' + encodeURIComponent(JSON.stringify(value)) + expires + '; path=/';
     }
-    function getCookie(name) {
-        const nameEQ = name + '=';
-        const ca = document.cookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) {
-                try {
-                    return JSON.parse(decodeURIComponent(c.substring(nameEQ.length, c.length)));
-                } catch (e) {
-                    return null;
-                }
-            }
+
+    function loadHistoryFromStorage(key) {
+        try {
+            const raw = localStorage.getItem(key);
+            if (!raw) return null;
+            return JSON.parse(raw);
+        } catch (e) {
+            console.warn('从 localStorage 加载历史失败', e);
+            return null;
         }
-        return null;
     }
-    function eraseCookie(name) {
-        document.cookie = name + '=; Max-Age=-99999999; path=/';
+
+    function eraseHistoryFromStorage(key) {
+        try {
+            localStorage.removeItem(key);
+        } catch (e) {
+            console.warn('从 localStorage 删除历史失败', e);
+        }
     }
 
     // 获取DOM元素
@@ -42,30 +39,22 @@ document.addEventListener('DOMContentLoaded', function() {
         defaultModel: 'THUDM/GLM-4-9B-0414',   // 默认模型名称
         alternativeModel: 'deepseek-ai/DeepSeek-R1-0528-Qwen3-8B' // 高级模型名称
     };
+    // 最大上下文消息条数（只发送最近 N 条历史以避免请求过大）
+    const HISTORY_LIMIT = 10;
     
     // 提示词
     let systemPromptDefault = "你的名字是MyAI,是一个AI助手。现在，你需要处理以下用户的问题：";
     let systemPromptResearch = "你的名字是MyAI,是一个AI助手。你处理用户的问题需要专业且详细。现在，你需要处理以下用户的问题：";
-
-    // 从JSON加载提示词
-    fetch('myai.json')
-        .then(response => response.json())
-        .then(data => {
-            if (data['system-prompt']) {
-                systemPromptDefault = data['system-prompt'];
-            }
-            if (data['research-system-prompt']) {
-                systemPromptResearch = data['research-system-prompt'];
-            }
-        }).catch(error => console.error("Failed to load prompts from myai.json", error));
-
     
-    // 聊天历史
+    // 聊天历史（默认开启上下文）
     let chatHistory = [];
 
-    // 恢复历史对话
-    function restoreHistoryFromCookie() {
-        const logs = getCookie('logs');
+    //调试开关
+    const DEBUG_SIMULATE_AI = false;
+
+    // 恢复历史对话（从 localStorage）
+    function restoreHistoryFromStorage() {
+        const logs = loadHistoryFromStorage('logs');
         if (Array.isArray(logs)) {
             chatHistory = logs;
             chatHistory.forEach(msg => {
@@ -74,13 +63,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 保存历史到cookie
-    function saveHistoryToCookie() {
-        setCookie('logs', chatHistory, 30);
+    // 保存历史到 localStorage
+    function saveHistoryToStorageWrapper() {
+        saveHistoryToStorage('logs', chatHistory);
     }
     
     // 发送消息函数
+    function setSendButtonDisabled(disabled) {
+        if (disabled) {
+            sendButton.disabled = true;
+            sendButton.style.opacity = '0.5';
+            sendButton.style.cursor = 'not-allowed';
+        } else {
+            sendButton.disabled = false;
+            sendButton.style.opacity = '';
+            sendButton.style.cursor = '';
+        }
+    }
+
     function sendMessage() {
+        // 如果按钮被禁用，则不发送
+        if (sendButton.disabled) return;
+
         const message = messageInput.value.trim();
         if (message === '') return;
         
@@ -92,13 +96,15 @@ document.addEventListener('DOMContentLoaded', function() {
             role: 'user',
             content: message
         });
-        saveHistoryToCookie();
+        saveHistoryToStorageWrapper();
         
         // 清空输入框
         messageInput.value = '';
         
-        // 显示"正在输入"指示器
-        typingIndicator.style.display = 'block';
+    // 显示"正在输入"指示器
+    typingIndicator.style.display = 'block';
+    // 禁用发送按钮，避免在 AI 回复过程中重复发送
+    setSendButtonDisabled(true);
         chatContainer.scrollTop = chatContainer.scrollHeight;
         
         // 根据研究模式选择提示词
@@ -106,6 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 准备API请求数据
         const selectedModel = modelToggle.checked ? apiConfig.alternativeModel : apiConfig.defaultModel;
+        // 只取最近 HISTORY_LIMIT 条历史消息作为上下文（保留 system 提示）
+        const recentHistory = chatHistory.slice(-HISTORY_LIMIT);
         const requestData = {
             model: selectedModel,
             messages: [
@@ -113,13 +121,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     role: 'system',
                     content: systemPrompt
                 },
-                ...chatHistory.map(msg => ({
+                ...recentHistory.map(msg => ({
                     role: msg.role,
                     content: msg.content
                 }))
             ]
         };
         
+        // Debug
+        if (DEBUG_SIMULATE_AI) {
+            setTimeout(() => {
+                const simulatedReply = '这是一条调试信息，成功模拟思考5秒。';
+                // 隐藏指示器并恢复发送按钮
+                typingIndicator.style.display = 'none';
+                setSendButtonDisabled(false);
+
+                // 显示模拟回复并保存到历史
+                addMessageToChat('assistant', simulatedReply);
+                chatHistory.push({ role: 'assistant', content: simulatedReply });
+                saveHistoryToStorageWrapper();
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 5000);
+            return;
+        }
+
         // 发送请求到Cloudflare Worker代理
         fetch('/ai-proxy', {
             method: 'POST',
@@ -156,6 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(result => {
             // 隐藏"正在输入"指示器
             typingIndicator.style.display = 'none';
+            // 恢复发送按钮
+            setSendButtonDisabled(false);
             
             // 处理不同类型的响应
             if (result.ok && result.json && result.json.choices && result.json.choices[0] && result.json.choices[0].message) {
@@ -167,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     role: 'assistant',
                     content: aiResponse
                 });
-                saveHistoryToCookie();
+                saveHistoryToStorageWrapper();
             } else {
                 // 其他错误
                 throw new Error(`服务返回非预期响应: ${result.text ? result.text.substring(0, 100) + '...' : '空响应'}`);
@@ -179,6 +206,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             // 隐藏"正在输入"指示器
             typingIndicator.style.display = 'none';
+            // 恢复发送按钮（确保在错误情况下也能恢复）
+            setSendButtonDisabled(false);
             
             // 错误提示
             let errorMessage = '服务暂时不可用，请稍后再试。';
@@ -196,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 role: 'assistant',
                 content: errorMessage
             });
-            saveHistoryToCookie();
+            saveHistoryToStorageWrapper();
             chatContainer.scrollTop = chatContainer.scrollHeight;
             
             // 记录详细错误到控制台
@@ -246,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearLogsLink.addEventListener('click', function(e) {
             e.preventDefault();
             if (confirm('确定要清除历史记录吗？该操作不可逆，清除后历史记录无法恢复！')) {
-                eraseCookie('logs');
+                eraseHistoryFromStorage('logs');
                 chatHistory = [];
                 // 清空聊天界面（保留欢迎语和typing-indicator）
                 const messages = chatContainer.querySelectorAll('.message');
@@ -255,15 +284,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // 初始化发送按钮状态为可用
+    setSendButtonDisabled(false);
+
     // 发送按钮点击事件
     sendButton.addEventListener('click', sendMessage);
-    // 输入框回车事件
+    // 输入框回车事件（同时检查按钮状态）
     messageInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-            sendMessage();
+            if (!sendButton.disabled) sendMessage();
         }
     });
 
-    // 页面加载时恢复历史
-    restoreHistoryFromCookie();
+    // 页面加载时恢复历史（从 localStorage）
+    restoreHistoryFromStorage();
 });
